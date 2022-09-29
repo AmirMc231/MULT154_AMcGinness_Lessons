@@ -44,6 +44,13 @@ public class PlayerMovement : MonoBehaviour
         direction = new Vector3(horzMove, 0, vertMove);
     }
 
+    private void OnDrawGizmos()
+    {
+       
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(transform.position, new Vector3(5, 6, 5));
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
