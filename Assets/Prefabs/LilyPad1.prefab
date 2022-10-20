@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 4297692902197120137}
   - component: {fileID: 4297692902197120138}
   - component: {fileID: 4297692902197120139}
+  - component: {fileID: 8674535316550286570}
+  - component: {fileID: -525571760564232684}
   m_Layer: 0
   m_Name: LilyPad1
   m_TagString: Untagged
@@ -112,3 +114,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   driftDirection: 1
+--- !u!114 &8674535316550286570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4147491215483667391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8258ea15b8f74c4889ce485d21cbbb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 36
+    i1: 29
+    i2: 251
+    i3: 114
+    i4: 24
+    i5: 142
+    i6: 198
+    i7: 148
+    i8: 139
+    i9: 46
+    i10: 70
+    i11: 84
+    i12: 180
+    i13: 99
+    i14: 162
+    i15: 39
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
+--- !u!114 &-525571760564232684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4147491215483667391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d6c522af31447398568cc65334232b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
