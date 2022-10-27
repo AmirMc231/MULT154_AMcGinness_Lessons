@@ -9,8 +9,8 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 direction = Vector3.zero;
     //private bool islocalPlayer;
     public float speed = 10.0f;
-    public GameObject spawnPoint = null;
-    private Dictionary<Item.VEGETABLE_TYPE, int> ItemInventory = new Dictionary<Item.VEGETABLE_TYPE, int>();
+    public GameObject[] spawnPoint = null;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -21,28 +21,12 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         rbPlayer = GetComponent<Rigidbody>();
+        spawnPoint = GameObject.FindGameObjectsWithTag("Respawn");
 
-        foreach(Item.VEGETABLE_TYPE item in System.Enum.GetValues(typeof(Item.VEGETABLE_TYPE)))
-        {
-            ItemInventory.Add(item, 0);
-        }
+        
     }
 
-    private void AddToInventory(Item item)
-    {
-        ItemInventory[item.typeOfVeggie]++;
-    }
 
-    private void PrintInventory()
-    {
-        string output = "";
-
-        foreach (KeyValuePair<Item.VEGETABLE_TYPE, int> kvp in ItemInventory)
-        {
-            output += string.Format("{0}: {1}", kvp.Key, kvp.Value);
-        }
-        Debug.Log(output);
-    }
     private void Update()
     {
         if (!isLocalPlayer)
@@ -78,23 +62,17 @@ public class PlayerMovement : NetworkBehaviour
 
     private void Respawn()
     {
-        rbPlayer.MovePosition(spawnPoint.transform.position);
+        int index = 0;
+        while(Physics.CheckBox(spawnPoint[index].transform.position, new Vector3(1.5f, 1.5f, 1.5f)))
+        {
+            index++;
+        }
+        rbPlayer.MovePosition(spawnPoint[index].transform.position);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+    
 
-        if (other.CompareTag("Item"))
-        {
-            Item item = other.gameObject.GetComponent<Item>();
-            AddToInventory(item);
-            PrintInventory();
-        }
-    }
+
     private void OnTriggerExit(Collider other)
     {
         if (!isLocalPlayer)
