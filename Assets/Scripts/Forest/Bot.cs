@@ -172,4 +172,9 @@ public class Bot : MonoBehaviour
         //Seek(target.transform.position);
 
     }
+
+    public void StopBot()
+    {
+        agent.isStopped = true;
+    }
 }
