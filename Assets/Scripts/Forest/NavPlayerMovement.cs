@@ -45,11 +45,13 @@ public class NavPlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("Collide Player with" + collision.gameObject.name);
         if (collision.collider.CompareTag("Hazard"))
         {
+            
             anim.SetTrigger("Death");
-            //camera.transform.Translate(camera.transform.forward * -1 * 10);
-            StartCoroutine(ZoomOut());
+            camera.transform.Translate(camera.transform.forward * -1 * 10);
+            //StartCoroutine(ZoomOut());
         }
     }
 
