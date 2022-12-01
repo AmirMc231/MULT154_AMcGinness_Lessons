@@ -11,6 +11,7 @@ public class NavPlayerMovement : MonoBehaviour
     float rotate = 0;
     private Animator anim;
     private Camera camera;
+    private Transform lookTarget;
 
     public delegate void DropHive(Vector3 pos);
     public static event DropHive DroppedHive;
@@ -20,6 +21,7 @@ public class NavPlayerMovement : MonoBehaviour
         rgBody = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         camera = GetComponentInChildren<Camera>();
+        lookTarget = GameObject.Find("HeadAimTarget").transform;
     }
     void Update()
     {
@@ -55,6 +57,15 @@ public class NavPlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Hazard"))
+        {
+            //lookTarget.position = other.transform.position;
+            StartCoroutine(LookAndLookAway(lookTarget.position, other.transform.position));
+        }
+    }
+
     IEnumerator ZoomOut()
     {
         const int ITERATIONS = 25;
@@ -62,6 +73,28 @@ public class NavPlayerMovement : MonoBehaviour
         {
             camera.transform.Translate(camera.transform.forward * -1 * 15.0f / ITERATIONS);
             yield return new WaitForSeconds(1.0f / ITERATIONS);
+        }
+    }
+
+    private IEnumerator LookAndLookAway(Vector3 targetPos, Vector3 hazardPos)
+    {
+        Vector3 targetDir = targetPos - transform.position;
+        Vector3 hazardDir = hazardPos - transform.position;
+
+        float angle = Vector2.Angle(new Vector2(targetPos.x, targetPos.z), new Vector2(hazardPos.x, hazardPos.z));
+        const int INTERVALS = 20;
+        const float INTERVAL = 0.5f / INTERVALS;
+        float angleInterval = angle / INTERVALS; 
+
+        for(int i = 0; i < INTERVALS; i++)
+        {
+            lookTarget.RotateAround(transform.position, Vector3.up, -angleInterval);
+            yield return new WaitForSeconds(INTERVAL);
+        }
+        for (int i = 0; i < INTERVALS; i++)
+        {
+            lookTarget.RotateAround(transform.position, Vector3.up, angleInterval);
+            yield return new WaitForSeconds(INTERVAL);
         }
     }
 }
